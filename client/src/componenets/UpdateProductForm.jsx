@@ -1,19 +1,27 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
-export default (props) => {
+const UpdateProductForm = (props) => {
     const [title, setTitle] = useState("");
-    const [price, setPrice] = useState(0.0);
+    const [price, setPrice] = useState(0);
     const [description, setDescription] = useState("");
+    const { id } = useParams();
+    const history = useHistory();
+
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/products/" + id)
+            .then(res => {
+                setTitle(res.data.product.title);
+                setPrice(res.data.product.price);
+                setDescription(res.data.product.description);
+            })
+    });
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8000/api/products/new", {
-            title,
-            price,
-            description
-        })
-            .then(res => console.log(res))
+        axios.put("http://localhost:8000/api/products/update/" + id, { title, price, description })
+            .then(res => history.push("/" + id))
             .catch(err => console.error(err));
     }
 
@@ -37,3 +45,5 @@ export default (props) => {
         </>
     );
 }
+
+export default UpdateProductForm;

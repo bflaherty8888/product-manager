@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ProductDetails from "./componenets/ProductDetails";
-import ProductForm from "./componenets/ProductForm";
+import NewProductForm from "./componenets/NewProductForm";
 import ProductList from "./componenets/ProductList";
+import UpdateProductForm from "./componenets/UpdateProductForm";
 
 function App() {
   return (
@@ -10,12 +11,15 @@ function App() {
         <h1>Product Manager</h1>
         <Switch>
           <Route exact path="/">
-            <ProductForm />
+            <NewProductForm />
             <hr />
             <ProductList />
           </Route>
-          <Route path="/:id">
+          <Route exact path="/:id">
             <ProductDetails />
+          </Route>
+          <Route path="/:id/edit">
+            <UpdateProductForm />
           </Route>
         </Switch>
       </div>
