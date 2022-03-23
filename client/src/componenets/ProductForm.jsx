@@ -30,7 +30,7 @@ export default (props) => {
                 </p>
                 <p>
                 <label className='form-label'>Description</label>
-                <input type={'text'} className='form-control' onChange={(e) => setDescription(e.target.value)} value={description} />
+                <textarea className='form-control' onChange={(e) => setDescription(e.target.value)} value={description} />
                 </p>
                 <input type={'submit'} className='form-control btn btn-primary' value={'Submit'} />
             </form>
